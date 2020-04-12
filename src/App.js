@@ -25,15 +25,27 @@ myBooks = ()=>{
 }
 
 handleSearchChange = (event)=>{
-    console.log(event.target.value);
+    //console.log(event.target.value);
+    let query = event.target.value
     
-    
-    BooksAPI.search(event.target.value,20).then(res=>{
-      	console.log(res)
+    BooksAPI.search(query,20).then(res=>{
+      	
     	//this.setState({data:res});
       	if(!Array.isArray(res))
-          res=[]
-      		
+        {
+          if(query)
+          {
+            res.query = query;
+            console.log(res)
+            this.setState({searchData:res});
+          }
+          else
+          {
+            this.setState({searchData:[]});
+          }
+        }
+      	else
+        {
       	var new_res = res.map(item => {
           let same_book = this.state.data.find(eachitem => eachitem.id === item.id);
           if (same_book) item.shelf = same_book.shelf;
@@ -42,18 +54,21 @@ handleSearchChange = (event)=>{
       
           //console.log(res);
         this.setState({searchData:new_res});
+        }
          
     }).catch(err=>{
-      //console.log("error");
+      console.log(err);
       this.setState({searchData:[]});
     })
     
   }
 
 ChangeBook = (Book,shelf)=>{
-  BooksAPI.update(Book, shelf).then(() => {
-            Book.shelf = shelf;
-            this.myBooks()
+  BooksAPI.update(Book, shelf).then(response => {
+  Book.shelf = shelf;
+  this.setState({
+    data: this.state.data.filter(book => book.id !== Book.id).concat(Book)
+  });
   });
 }
 

@@ -1,18 +1,17 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
-import List from './List'
+import Shelf from './Shelf'
 
 class MainPage extends Component{
-  
-  state = {
-    read:[],
-    currRead:[],
-    wantToRead:[],
-    query:"",
-  }
 
 
   render(){
+    
+    const shelves = {
+    currentlyReading: ['Currently Reading', 'currentlyReading'],
+    wantToRead: ['Want to Read', 'wantToRead'],
+    read: ['Read', 'read']
+    }
     
     return(
       <div className="list-books">
@@ -21,30 +20,10 @@ class MainPage extends Component{
             </div>
             <div className="list-books-content">
               <div>
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Currently Reading</h2>
-                  <div className="bookshelf-books">
-                    <ol className="books-grid">
-                      <List ChangeBook={this.props.ChangeBook} data={this.props.data.filter(data=>data.shelf==='currentlyReading')}/>
-                    </ol>
-                  </div>
-                </div>
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Want to Read</h2>
-                  <div className="bookshelf-books">
-                    <ol className="books-grid">
-                      <List ChangeBook={this.props.ChangeBook} data={this.props.data.filter(data=>data.shelf==='wantToRead')}/>
-                    </ol>
-                  </div>
-                </div>
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Read</h2>
-                  <div className="bookshelf-books">
-                    <ol className="books-grid">
-                      <List ChangeBook={this.props.ChangeBook} data={this.props.data.filter(data=>data.shelf==='read')}/>
-                    </ol>
-                  </div>
-                </div>
+      			{Object.keys(shelves).map((key,indx)=>{
+                  return (
+                    <Shelf key={indx} type={shelves[key][0]} ChangeBook={this.props.ChangeBook} data={this.props.data.filter(data=>data.shelf===shelves[key][1])}/>
+            	 )})}
               </div>
             </div>
             <div className="open-search">
