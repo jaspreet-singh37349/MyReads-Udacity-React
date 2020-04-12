@@ -28,39 +28,41 @@ handleSearchChange = (event)=>{
     //console.log(event.target.value);
     let query = event.target.value
     
+    if(query.length!==0)
+    {
     BooksAPI.search(query,20).then(res=>{
       	
     	//this.setState({data:res});
       	if(!Array.isArray(res))
-        {
-          if(query)
-          {
-            res.query = query;
-            console.log(res)
-            this.setState({searchData:res});
-          }
-          else
-          {
-            this.setState({searchData:[]});
-          }
+        { 
+          res.query = query;
+          console.log(res)
+          this.setState({searchData:res});  
         }
       	else
         {
-      	var new_res = res.map(item => {
-          let same_book = this.state.data.find(eachitem => eachitem.id === item.id);
-          if (same_book) item.shelf = same_book.shelf;
-          return item;
-        });
+        
+          var new_res = res.map(item => {
+            let same_book = this.state.data.find(eachitem => eachitem.id === item.id);
+            if (same_book) item.shelf = same_book.shelf;
+            return item;
+          });
       
           //console.log(res);
-        this.setState({searchData:new_res});
+        	this.setState({searchData:new_res});
+          //console.log("yes")
+        
+        
         }
          
     }).catch(err=>{
       console.log(err);
-      this.setState({searchData:[]});
     })
-    
+    }
+  	else
+    {
+      this.setState({searchData:[]});
+    }
   }
 
 ChangeBook = (Book,shelf)=>{
