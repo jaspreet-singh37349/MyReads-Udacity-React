@@ -1,13 +1,16 @@
 {
   "homepage": "http://jaspreet-singh37349.github.io/MyReads-Udacity-React",
+  "name": "MyReads-Udacity-React",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "gh-pages": "^2.2.0",
     "prop-types": "^15.5.8",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-router-dom": "^5.1.2"
   },
   "devDependencies": {
+    "gh-pages": "^2.2.0",
     "react-scripts": "0.9.5"
   },
   "scripts": {
@@ -15,7 +18,19 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-	"predeploy": "npm run build",
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
