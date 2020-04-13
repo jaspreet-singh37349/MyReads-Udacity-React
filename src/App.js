@@ -66,12 +66,21 @@ handleSearchChange = (event)=>{
   }
 
 ChangeBook = (Book,shelf)=>{
-  BooksAPI.update(Book, shelf).then(response => {
-  Book.shelf = shelf;
-  this.setState({
-    data: this.state.data.filter(book => book.id !== Book.id).concat(Book)
-  });
-  });
+  var oldShelf = Book.shelf
+  if(Book.shelf!==shelf)
+  {
+    BooksAPI.update(Book, shelf).then(response => {
+      	if(oldShelf!==undefined)
+    	  alert("Moved "+Book.title+" from "+oldShelf+" to "+shelf)
+      	else
+          alert("Added "+Book.title+" to your "+shelf+" List")
+    });
+    
+    Book.shelf = shelf;
+    this.setState({
+      data: this.state.data.filter(book => book.id !== Book.id).concat(Book)
+    });
+  }
 }
 
 clear = ()=>{
