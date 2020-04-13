@@ -1,5 +1,5 @@
 {
-  "homepage": "http://jaspreet-singh37349.github.io/MyReads-Udacity-React"
+  "homepage": "http://jaspreet-singh37349.github.io/MyReads-Udacity-React",
   "dependencies": {
     "gh-pages": "^2.2.0",
     "prop-types": "^15.5.8",
